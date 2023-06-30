@@ -61,7 +61,7 @@ p {
   margin: 5px 0;
   padding: 10px;
   border-radius: 10px;
-  max-width: 50%;
+  max-width: 80%;
   word-wrap: break-word;
 }
 
@@ -72,16 +72,14 @@ p {
   margin: 5px 0;
   padding: 10px;
   border-radius: 10px;
-  max-width: 50%;
-  word-wrap: break-word;
+  max-width: 80%;
+  white-space: pre-wrap;
 }
 
 .input-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 90%; */
-  /* height: 20%; */
   padding: 10px;
 }
 
@@ -111,4 +109,43 @@ button:hover {
   font-weight: 700;
   background-color: white;
   border: 2px solid green;
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: 95%;
+    width: 95%;
+    border-color: green;
+    border-style: solid;
+    border-radius: 0.5rem;
+    border-width: 0.3rem;
+    background-color: white;
+    margin: none;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    height: 95%;
+    width: 95%;
+    border-color: green;
+    border-style: solid;
+    border-radius: 0.5rem;
+    border-width: 0.3rem;
+    background-color: white;
+    margin: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    height: 95%;
+    width: 95%;
+    border-color: green;
+    border-style: solid;
+    border-radius: 0.5rem;
+    border-width: 0.3rem;
+    background-color: white;
+    margin: none;
+  }
 }

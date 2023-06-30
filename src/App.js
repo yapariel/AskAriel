@@ -1,3 +1,4 @@
+// APP.JS
 import { useState } from "react";
 import "./App.css";
 import { sendMessageToOpenAi } from "./components/Openai";
@@ -7,12 +8,21 @@ function App() {
   const [messages, setMessages] = useState([]);
 
   const handleSend = async () => {
-    const response = await sendMessageToOpenAi(input);
-    setMessages([
-      ...messages,
+    setMessages((prevMessages) => [
+      ...prevMessages,
       { text: input, isUser: true },
-      { text: response, isUser: false },
     ]);
+
+    const response = await sendMessageToOpenAi(input);
+
+    const isCode = input.toLowerCase().includes("code");
+    const formattedResponse = isCode ? `<code>${response}</code>` : response;
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: formattedResponse, isUser: false },
+    ]);
+
     setInput("");
   };
 
