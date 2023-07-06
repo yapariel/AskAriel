@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import { FiMic } from "react-icons/fi";
+import { FiMic, FiVolume2 } from "react-icons/fi";
 import { sendMessageToOpenAi } from "./components/Openai";
 import TypingEffect from "./components/TypingEffect";
 
 function App() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [spokenMessage, setSpokenMessage] = useState("");
   const recognitionRef = useRef(null);
   const [isTyping, setIsTyping] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   useEffect(() => {
     if ("webkitSpeechRecognition" in window) {
@@ -63,6 +65,25 @@ function App() {
     }
   };
 
+  const handleSpeakerClick = (message) => {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    } else {
+      setSpokenMessage(message);
+      setIsSpeaking(true);
+    }
+  };
+
+  useEffect(() => {
+    if (isSpeaking && spokenMessage) {
+      const utterance = new SpeechSynthesisUtterance(spokenMessage);
+      window.speechSynthesis.speak(utterance);
+      setIsSpeaking(false);
+      setSpokenMessage("");
+    }
+  }, [isSpeaking, spokenMessage]);
+
   return (
     <div className="App">
       <div className="title">
@@ -79,20 +100,29 @@ function App() {
               {isTyping && index === messages.length - 1 ? (
                 <TypingEffect />
               ) : (
-                message.text
+                <div>
+                  {message.text}
+                  {!message.isUser && (
+                    <span
+                      className="speaker-icon"
+                      onClick={() => handleSpeakerClick(message.text)}
+                    >
+                      <FiVolume2 />
+                    </span>
+                  )}
+                </div>
               )}
             </div>
           ))}
         </div>
-
         <div className="input-container">
           <input
-            placeholder="Type a message.."
+            placeholder="To use Mic Hold, Talk & Release"
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button
+          <div
             className="mic-button"
             onMouseDown={handleMicPress}
             onMouseUp={handleMicRelease}
@@ -100,7 +130,7 @@ function App() {
             onTouchEnd={handleMicRelease}
           >
             <FiMic />
-          </button>
+          </div>
 
           <button onClick={handleSend}>SEND</button>
         </div>

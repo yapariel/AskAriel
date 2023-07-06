@@ -8,7 +8,7 @@
 
 .title {
   align-items: center;
-  color: green;
+  color: #0080ff;
   justify-content: center;
   text-align: center;
   padding-bottom: 0.5rem;
@@ -37,10 +37,10 @@ p {
 .container {
   height: 70%;
   width: 70%;
-  border-color: green;
+  border-color: #0080ff;
   border-style: solid;
   border-radius: 2rem;
-  border-width: 0.5rem;
+  border-width: 0.2rem;
   background-color: white;
 }
 .chat {
@@ -51,11 +51,11 @@ p {
   height: 80%;
   overflow-y: scroll;
   padding: 1rem;
-  border-color: green;
+  /* border-color: black; */
 }
 
 .user-message {
-  background-color: green;
+  background-color: #0080ff;
   color: white;
   align-self: flex-end;
   margin: 5px 0;
@@ -66,8 +66,8 @@ p {
 }
 
 .bot-message {
-  background-color: green;
-  color: white;
+  background-color: #e7eef4;
+  color: black;
   align-self: flex-start;
   margin: 5px 0;
   padding: 10px;
@@ -87,8 +87,10 @@ input[type="text"] {
   width: 70%;
   padding: 10px;
   border-radius: 10px;
-  border: 2px solid green;
+  /* border: 2px solid rgb(42, 42, 42); */
   outline: none;
+  background-color: #e7eef4;
+  border-style: none;
 }
 
 button {
@@ -97,25 +99,45 @@ button {
   border-radius: 10px;
   border: none;
   outline: none;
-  background-color: green;
+  background-color: #0080ff;
   color: white;
   cursor: pointer;
   font-weight: 700;
   margin-left: 0.5rem;
 }
 
-button:hover {
-  color: green;
+.mic-button {
+  text-align: center;
+  width: 3%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #e7eef4;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+.mic-button:hover {
+  color: #0080ff;
   font-weight: 700;
   background-color: white;
-  border: 2px solid green;
+}
+
+button:hover {
+  color: #0080ff;
+  font-weight: 700;
+  background-color: white;
+  border: 2px solid #0080ff;
 }
 
 @media (max-width: 480px) {
   .container {
     height: 95%;
     width: 95%;
-    border-color: green;
+    border-color: white;
     border-style: solid;
     border-radius: 0.5rem;
     border-width: 0.3rem;
@@ -128,7 +150,7 @@ button:hover {
   .container {
     height: 95%;
     width: 95%;
-    border-color: green;
+    border-color: #0080ff;
     border-style: solid;
     border-radius: 0.5rem;
     border-width: 0.3rem;
@@ -141,7 +163,7 @@ button:hover {
   .container {
     height: 95%;
     width: 95%;
-    border-color: green;
+    border-color: #0080ff;
     border-style: solid;
     border-radius: 0.5rem;
     border-width: 0.3rem;
