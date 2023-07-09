@@ -11,6 +11,7 @@ function App() {
   const recognitionRef = useRef(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if ("webkitSpeechRecognition" in window) {
@@ -32,7 +33,7 @@ function App() {
   }, []);
 
   const handleSend = async () => {
-    setIsTyping(true);
+    setIsLoading(true);
 
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -51,6 +52,7 @@ function App() {
 
     setIsTyping(false);
     setInput("");
+    setIsLoading(false);
   };
 
   const handleMicPress = () => {
@@ -97,8 +99,12 @@ function App() {
               key={index}
               className={message.isUser ? "user-message" : "bot-message"}
             >
-              {isTyping && index === messages.length - 1 ? (
-                <TypingEffect />
+              {isLoading && index === messages.length - 1 ? (
+                <div className="typing-animation">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               ) : (
                 <div>
                   {message.text}
