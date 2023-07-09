@@ -68,12 +68,12 @@ function App() {
   };
 
   const handleSpeakerClick = (message) => {
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-    } else {
+    if (!isSpeaking) {
       setSpokenMessage(message);
       setIsSpeaking(true);
+    } else {
+      setIsSpeaking(false);
+      window.speechSynthesis.cancel();
     }
   };
 
@@ -81,8 +81,6 @@ function App() {
     if (isSpeaking && spokenMessage) {
       const utterance = new SpeechSynthesisUtterance(spokenMessage);
       window.speechSynthesis.speak(utterance);
-      setIsSpeaking(false);
-      setSpokenMessage("");
     }
   }, [isSpeaking, spokenMessage]);
 
@@ -110,7 +108,7 @@ function App() {
                   {message.text}
                   {!message.isUser && (
                     <span
-                      className="speaker-icon"
+                      className={`speaker-icon ${isSpeaking ? "active" : ""}`}
                       onClick={() => handleSpeakerClick(message.text)}
                     >
                       <FiVolume2 />
