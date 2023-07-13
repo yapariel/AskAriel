@@ -2,16 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { FiMic, FiVolume2 } from "react-icons/fi";
 import { sendMessageToOpenAi } from "./components/Openai";
-import TypingEffect from "./components/TypingEffect";
 
 function App() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [spokenMessage, setSpokenMessage] = useState("");
   const recognitionRef = useRef(null);
-  const [isTyping, setIsTyping] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if ("webkitSpeechRecognition" in window) {
@@ -33,8 +30,6 @@ function App() {
   }, []);
 
   const handleSend = async () => {
-    setIsLoading(true);
-
     setMessages((prevMessages) => [
       ...prevMessages,
       { text: input, isUser: true },
@@ -50,9 +45,7 @@ function App() {
       { text: formattedResponse, isUser: false },
     ]);
 
-    setIsTyping(false);
     setInput("");
-    setIsLoading(false);
   };
 
   const handleMicPress = () => {
@@ -97,25 +90,17 @@ function App() {
               key={index}
               className={message.isUser ? "user-message" : "bot-message"}
             >
-              {isLoading && index === messages.length - 1 ? (
-                <div className="typing-animation">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              ) : (
-                <div>
-                  {message.text}
-                  {!message.isUser && (
-                    <span
-                      className={`speaker-icon ${isSpeaking ? "active" : ""}`}
-                      onClick={() => handleSpeakerClick(message.text)}
-                    >
-                      <FiVolume2 />
-                    </span>
-                  )}
-                </div>
-              )}
+              <div>
+                {message.text}
+                {!message.isUser && (
+                  <span
+                    className={`speaker-icon ${isSpeaking ? "active" : ""}`}
+                    onClick={() => handleSpeakerClick(message.text)}
+                  >
+                    <FiVolume2 />
+                  </span>
+                )}
+              </div>
             </div>
           ))}
         </div>
